@@ -14,10 +14,32 @@ export default function init() {
 		}
 	}
 	console.log(count, 'overlaping square inches of fabric');
-	var width = 0;
-	var height = 0;
-	var string = '<canvas width="'+width+'" height="'+height+'" class=""></canvas>';
-	return string;
+
+	var badIds = getOverlapingIds(cloth);
+	var ids = [];
+	for(var i = 0; i < data.length; i++){
+		ids.push(data[i].id);
+	}
+	var difference = ids.filter(x => !badIds.includes(x));
+	console.log(difference, 'id of cut with no overlap');
+
+	return '';
+}
+
+function getOverlapingIds(cloth){
+	var overlapingIds = [];
+	for(var x = 0; x < cloth.length; x++){
+		for(var y = 0; y < cloth[x].length; y++){
+			if(cloth[x][y].length >= 2){
+				for(var e = 0; e < cloth[x][y].length; e++){
+					if(overlapingIds.includes(cloth[x][y][e]) === false){
+						overlapingIds.push(cloth[x][y][e]);
+					}
+				}
+			}
+		}
+	}
+	return overlapingIds;
 }
 
 function populateClothRequests(cloth, data){
