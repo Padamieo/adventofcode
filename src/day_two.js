@@ -1,16 +1,11 @@
 import text from './resources/day_two.txt';
 
-export default function sayHello() {
+export default function init() {
 	var data = processData(text);
-	//console.log(data);
-	console.log(data.length);
 	var two = findOccurances(2, data);
-	console.log(two);
-	// var three = findOccurances(3, data);
-	// console.log(three);
-	//console.log(two * three, 'something');
-	// var repeat = frequencyHit(0, data);
-	// console.log(repeat, 'first hit frequency to repeat');
+	var three = findOccurances(3, data);
+	var total = two * three;
+	console.log(total, 'something');
 }
 
 function processData(input) {
@@ -56,8 +51,7 @@ function findOccurances(of, inData) {
 		if(test >= 1){
 			occurances++;
 		}
-		console.log(inData[i], v, occurances);
+		// console.log(inData[i], v, occurances);
 	}
-	//console.log(occurances);
 	return occurances;
 }

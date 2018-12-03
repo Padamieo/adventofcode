@@ -39,6 +39,13 @@ module.exports = {
 		},{
 			test: /\.txt$/,
 			use: 'raw-loader'
+		},{
+			test: /\.css$/,
+			exclude: /node_modules/,
+			use: [
+				'style-loader',
+				'css-loader?sourceMap',
+			],
 		}]
 	},
 	plugins: [
