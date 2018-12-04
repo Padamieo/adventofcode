@@ -2,8 +2,30 @@ import text from './resources/day_four.txt';
 
 export default function init() {
 	var data = processData(text);
-	var a = buildGuardInfo(data);
-	var guardInfo = test(data, a);
+	var guards = buildGuardInfo(data);
+	//console.log('guards', Object.keys(guards).length);
+
+	var final = [];
+	//
+	Object.keys(guards).forEach(key => {
+		console.log(guards[key]);
+
+		for(var i = 0; i < guards[key].stamps.length; i++){
+			var startStamp = guards[key].stamps[i];
+			var index = data.findIndex(e => e.stamp === startStamp);
+			console.log(index);
+			//console.log(guards[key].stamps[i]);
+		}
+
+	});
+	// var filtered = a.filter(e => {
+	// 	if(!uniqIds[e.guardId] && (uniqIds[e.guardId] = true)){
+	// 		console.log(e);
+	// 		return e;
+	// 	}
+	// });
+	console.log(final);
+
 	console.log('');
 	return '';
 }
@@ -17,7 +39,7 @@ function test(data, guardInfo){
 		var iterate = 0;
 		var bail = 0;
 		var time = 0;
-		console.log('new');
+		//console.log('new');
 		while (bail <= 1) {
 			if(data[index+iterate].state === 'start'){
 				bail++;
@@ -27,11 +49,11 @@ function test(data, guardInfo){
 				}
 				if(data[index+iterate].state === 'wakes'){
 					var r = (data[index+iterate].minutes - time);
-					console.log(time, data[index+iterate].minutes);
-					console.log(r);
+					//console.log(time, data[index+iterate].minutes);
+					//console.log(r);
 				}
 			}
-			console.log(data[index+iterate]);
+			//console.log(data[index+iterate]);
 			iterate++;
 		}
 	}
@@ -40,12 +62,16 @@ function test(data, guardInfo){
 
 function buildGuardInfo(data){
 	var startTimes = data.filter(e => e.guardId);
-	var guardInfo = startTimes.map(e => {
+	var guardInfo = {};
+	startTimes.map(e => {
 		if(e.guardId){
-			return {
-				guardId:e.guardId,
-				stamp:e.stamp,
-			};
+			if(guardInfo[e.guardId]){
+				var array = guardInfo[e.guardId].stamps;
+				array.push(e.stamp);
+				guardInfo[e.guardId] = {stamps:array};
+			}else{
+				guardInfo[e.guardId] = {stamps:[e.stamp]};
+			}
 		}
 	});
 	return guardInfo;
