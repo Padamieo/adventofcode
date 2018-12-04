@@ -3,10 +3,8 @@ import text from './resources/day_four.txt';
 export default function init() {
 	var data = processData(text);
 	var guards = buildGuardInfo(data);
-	//console.log('guards', Object.keys(guards).length);
 
 	var final = [];
-	//
 	Object.keys(guards).forEach(key => {
 		console.log(guards[key]);
 
@@ -16,15 +14,7 @@ export default function init() {
 			console.log(index);
 			//console.log(guards[key].stamps[i]);
 		}
-
 	});
-	// var filtered = a.filter(e => {
-	// 	if(!uniqIds[e.guardId] && (uniqIds[e.guardId] = true)){
-	// 		console.log(e);
-	// 		return e;
-	// 	}
-	// });
-	console.log(final);
 
 	console.log('');
 	return '';
