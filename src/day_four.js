@@ -3,15 +3,20 @@ import text from './resources/day_four.txt';
 export default function init() {
 	var data = processData(text);
 	var guards = buildGuardInfo(data);
-
+	//console.log(data[1107]);
 	var final = [];
 	Object.keys(guards).forEach(key => {
-		console.log(guards[key]);
+		//console.log(key, guards[key]);
+		// if(key !== '1319'){
+		// 	return;
+		// }
 
 		for(var i = 0; i < guards[key].stamps.length; i++){
 			var startStamp = guards[key].stamps[i];
 			var index = data.findIndex(e => e.stamp === startStamp);
-			console.log(index);
+			//console.log(index, data, guards[key]);
+			var b = test(index, data, guards[key]);
+			// console.log(b);
 			//console.log(guards[key].stamps[i]);
 		}
 	});
@@ -20,34 +25,49 @@ export default function init() {
 	return '';
 }
 
-function test(data, guardInfo){
-	for(var i = 270; i < guardInfo.length; i++){
-		var startStamp = guardInfo[i].stamp;
-		var index = data.findIndex(e => e.stamp === startStamp);
-		//console.log(data[index]);
-		//for(var i = data[index]; i < lines.length; i++){
-		var iterate = 0;
+function test(index, data, guardInfo){
+		var i = 0;
 		var bail = 0;
 		var time = 0;
-		//console.log('new');
+
 		while (bail <= 1) {
-			if(data[index+iterate].state === 'start'){
+			if(index+i === data.length){
+				return;
+			}
+
+			if(data[index+i].state === 'start'){
 				bail++;
 			}else{
-				if(data[index+iterate].state === 'falls'){
-					var time = data[index+iterate].minutes;
+				if(data[index+i].state === 'falls'){
+					var minutes = data[index+i].minutes;
+					var hours = data[index+i].hours;
+					var days = data[index+i].day;
+					//console.log(data[index+iterate]);
 				}
-				if(data[index+iterate].state === 'wakes'){
-					var r = (data[index+iterate].minutes - time);
-					//console.log(time, data[index+iterate].minutes);
-					//console.log(r);
+				if(data[index+i].state === 'wakes'){
+					var r_minutes = (data[index+i].minutes - minutes);
+					var r_hours = (data[index+i].hours - hours);
+					var r_days = (data[index+i].day - days);
+					//console.log(time, data[index+i].minutes);
+
+					if(r_hours !== 0){
+						console.log(r_minutes, r_hours, r_days);
+					}
+					//console.log(guardInfo);
+					if(!guardInfo.times){
+						guardInfo.times = [r_minutes];
+					}else{
+						guardInfo.times = [r_minutes];
+					}
+
+					//console.log(data[index+iterate]);
 				}
 			}
-			//console.log(data[index+iterate]);
-			iterate++;
+
+			i++;
 		}
-	}
-	return guardInfo;
+
+	//return guardInfo;
 }
 
 function buildGuardInfo(data){
