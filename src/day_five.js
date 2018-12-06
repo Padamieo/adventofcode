@@ -15,7 +15,7 @@ export default function init() {
 		letterPurgedResults[purgedArray.length] = {letter:alphabet[i]};
 	}
 	var bestLetterForPurge = Object.keys(letterPurgedResults)[0]
-	console.log(bestLetterForPurge, 'asdasdasdasdasdasd');
+	console.log(bestLetterForPurge, 'best letter to purge prior to processing');
 	return '';
 }
 
