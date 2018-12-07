@@ -1,5 +1,5 @@
-import text from './resources/day_six.txt';
-import common from 'common';
+import text from '../resources/day_six.txt';
+import common from '../common';
 const c = new common();
 
 export default function init() {
@@ -50,7 +50,7 @@ function map(data){
 	}
 
 	for(var i = 0; i < data.length; i++){
-		map[data[i].x][data[i].y] = String.fromCharCode('A'.charCodeAt() + i);
+		map[data[i].x][data[i].y] = c.getLetter(i);
 	}
 	console.log(map);
 	return map;

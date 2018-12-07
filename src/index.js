@@ -1,9 +1,10 @@
 import './index.css';
-import dayOne from './day_one';
-import dayTwo from './day_two';
-import dayThree from './day_three';
-import dayFour from './day_four';
-import dayFive from './day_five';
-import daySix from './day_six';
+import dayOne from './day/one';
+import dayTwo from './day/two';
+import dayThree from './day/three';
+import dayFour from './day/four';
+import dayFive from './day/five';
+import daySix from './day/six';
+import daySeven from './day/seven';
 
-document.getElementById('root').innerHTML = daySix();
+document.getElementById('root').innerHTML = daySeven();

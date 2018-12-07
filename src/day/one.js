@@ -1,4 +1,4 @@
-import text from './resources/day_one.txt';
+import text from '../resources/day_one.txt';
 
 export default function sayHello() {
 	var data = processData(text);

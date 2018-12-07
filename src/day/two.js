@@ -1,4 +1,4 @@
-import text from './resources/day_two.txt';
+import text from '../resources/day_two.txt';
 
 export default function init() {
 	var data = processData(text);

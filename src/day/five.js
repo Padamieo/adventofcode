@@ -1,4 +1,4 @@
-import text from './resources/day_five.txt';
+import text from '../resources/day_five.txt';
 
 export default function init() {
 	const data = processData(text);
@@ -7,7 +7,7 @@ export default function init() {
 	console.log(purgeResult.length, '10972 remainig units after processing');
 
 	var letterPurgedResults = {};
-	var alphabet = "abcdefghijklmnopqrstuvwxyz".split('');
+	var alphabet = c.alphabetArray();
 	for(var i = 0; i < alphabet.length; i++){
 		const stringArray = [...data];
 		const remainingStringArray = removeLetter(alphabet[i].toString(), stringArray);
