@@ -7,11 +7,11 @@ export default function init() {
 	var length = Object.keys(data).length;
 	var startLetter = findPotentialStartLetter(data);
 	var string = [];
-	string.push(startLetter);
-	var b = currentBlocks(startLetter, data);
-	string = stringIt(string, b, data);
-
+	//string.push(startLetter);
+	//var b = currentBlocks(startLetter, data);
+	string = stringIt(string, [startLetter], data);
 	console.log(string);
+
 	//var string = c.getLetter(25);
 	var aa = string.toString();
 	return aa.replace(',','');
@@ -19,10 +19,19 @@ export default function init() {
 
 function stringIt(string, array, data){
 	for(var i = 0; i < array.length; i++){
-		string.push(array[i]);
-		var a = currentBlocks(array[i], data);
-		console.log(string);
-		//string.push(',');
+		if(!string.includes(array[i])){
+			// if(position){
+			// 	string.splice(position, 0, array[i]);
+			// }else{
+			// 	string.splice(string.length, 0, array[i]);
+			// }
+			string.push(array[i]);
+			var b = currentBlocks(array[i], data);
+			console.log(array[i], array);
+			stringIt(string, b, data);
+		}
+		//var a = currentBlocks(array[i], data);
+
 	}
 	return string;
 }
