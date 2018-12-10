@@ -7,5 +7,7 @@ import dayFive from './day/five';
 import daySix from './day/six';
 import daySeven from './day/seven';
 import dayEight from './day/eight';
+import dayNine from './day/nine';
+import dayTen from './day/ten';
 
-document.getElementById('root').innerHTML = dayEight();
+document.getElementById('root').innerHTML = dayTen();

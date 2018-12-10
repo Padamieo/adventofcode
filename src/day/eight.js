@@ -4,43 +4,55 @@ const c = new common();
 
 export default function init() {
 	var data = processData(text);
+	var total = 0;
+	Object.keys(data).forEach(key => {
+		total += data[key].metadataEntriesTotal;
+	});
+	console.log(total);
 	return 'what';
 }
 
-function getCurrentNode(entries){
+function getCurrentNode(entries, end){
 	var childNodes = entries[0];
 	var metadataAmount = entries[1];
 	var metadataEntries = [];
-	for(var i = entries.length-metadataAmount; i < entries.length; i++){
-		metadataEntries.push(entries[i]);
+	var metadataEntriesTotal = 0;
+	if(end){
+		for(var i = entries.length-metadataAmount; i < entries.length; i++){
+			var entryInt = parseInt(entries[i]);
+			metadataEntries.push(entryInt);
+			metadataEntriesTotal += entryInt;
+		}
+		if(metadataAmount !== 0){
+			entries.splice(entries.length-metadataAmount, metadataAmount);
+		}
+		entries.splice(0, 2);
+	}else{
+		//entries.splice(0, 2);
+		for(var i = 2; i < metadataAmount+2; i++){
+			var entryInt = parseInt(entries[i]);
+			metadataEntries.push(entryInt);
+			metadataEntriesTotal += entryInt;
+		}
+		console.log(childNodes, metadataAmount, metadataEntries, metadataEntriesTotal);
+		entries.splice(0, metadataAmount+2);
 	}
-	entries.splice(entries.length-metadataAmount, metadataAmount);
-	entries.splice(0, 2);
-	return {childNodes, metadataAmount, metadataEntries};
+	return {childNodes, metadataAmount, metadataEntries, metadataEntriesTotal};
 }
 
 function processData(input) {
 	var data = {};
-	var entries = input.split(' ');
-	console.log(entries.length);
+	var entries = input.split(' ').map(n => parseInt(n));
 	var i = 0;
-	while(entries.length <= 0){
-		data[i] = getCurrentNode(entries);
-		console.log(entries.length);
+	var bail = true;
+	var end = true;
+	while( bail == true){
+		data[i] = getCurrentNode(entries, end);
+		end = !end;
 		i++;
-	}
-	console.log(entries.length);
-	for(var i = 0; i < entries.length; i++){
-		if(!c.empty(entries[i])){
-			//data[line[7]]
-			// var line = lines[i].split(' ');
-			// if(!data[line[7]]){
-			// 	data[line[7]] = {blockedBy:[line[1]]};
-			// }else{
-			// 	var current = data[line[7]].blockedBy;
-			// 	current.push(line[1]);
-			// 	data[line[7]] = {blockedBy:current};
-			// }
+		//console.log(entries.length);
+		if(entries.length <= 1 ){
+			bail = false;
 		}
 	}
 	return data;
