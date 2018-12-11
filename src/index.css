@@ -1,3 +1,7 @@
 body{
   background: #eee;
 }
+
+p{
+  margin: 0;
+}
