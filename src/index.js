@@ -10,4 +10,4 @@ import dayEight from './day/eight';
 import dayNine from './day/nine';
 import dayTen from './day/ten';
 
-document.getElementById('root').innerHTML = dayTen();
+document.getElementById('root').innerHTML = dayTwo();

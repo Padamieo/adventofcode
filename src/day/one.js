@@ -1,17 +1,19 @@
 import text from '../resources/day_one.txt';
+import common from '../common';
+const c = new common();
 
 export default function sayHello() {
 	var data = processData(text);
 	var endFrequency = findFrequency(0, data);
-	console.log(endFrequency, 'end frequency after changes');
+	console.log(endFrequency, 'part:1 end frequency');
 	var repeat = frequencyHit(0, data);
-	console.log(repeat, 'first hit frequency to repeat');
+	console.log(repeat, 'part:2 first hit frequency to repeat');
 }
 
 function processData(input) {
 	var lines = input.split('\n');
 	for(var i = 0; i < lines.length; i++){
-		if(lines[i] === undefined || lines[i] === '' || lines[i] === null ){
+		if(c.empty(lines[i])){
 			lines.splice(i, 1);
 		}
 	}

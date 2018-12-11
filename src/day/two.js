@@ -1,17 +1,59 @@
 import text from '../resources/day_two.txt';
+import common from '../common';
+const c = new common();
 
 export default function init() {
 	var data = processData(text);
 	var two = findOccurances(2, data);
 	var three = findOccurances(3, data);
 	var total = two * three;
-	console.log(total, 'something');
+	console.log(total, 'Part:1 checksum of occurances');
+
+	var matching = '';
+	var matchingByOneLetter = findMatchingByDegreeOf(data, 1);
+	if(matchingByOneLetter.length === 2){
+		matching = returnOnlyMatching(matchingByOneLetter[0], matchingByOneLetter[1]);
+		console.log(matching, 'Part:2 matching characters of closes strings');
+	}
+	
+	return matching;
+}
+
+function findMatchingByDegreeOf(data, of = 0){
+	return data.filter(function(aline) {
+		var filtered = data.filter(function(bline) {
+			if(aline !== bline){
+				var points = 0;
+				for(var l = 0; l < aline.length; l++){
+					if(aline[l] == bline[l]){
+						points++;
+					}
+				}
+				if(points >= aline.length-of){
+					return bline;
+				}
+			}
+		});
+		if(filtered.length > 0){
+			return filtered;
+		}
+	});
+}
+
+function returnOnlyMatching(lineOne, lineTwo){
+	var string = '';
+	for(var l = 0; l < lineOne.length; l++){
+		if(lineOne[l] === lineTwo[l]){
+			string += lineOne[l];
+		}
+	}
+	return string;
 }
 
 function processData(input) {
 	var lines = input.split('\n');
 	for(var i = 0; i < lines.length; i++){
-		if(lines[i] === undefined || lines[i] === '' || lines[i] === null ){
+		if(c.empty(lines[i])){
 			lines.splice(i, 1);
 		}
 	}

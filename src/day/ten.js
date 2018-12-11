@@ -6,9 +6,10 @@ export default function init() {
 	var data = processData(text);
 
 	var found = findMoment(data);
-	console.log(found);
-	var newData = produce(data, found.at, found.info);
+	console.log(found.at, 'part:2 moment the word is seen');
 
+	//setup part one for visual
+	var newData = produce(data, found.at, found.info);
 	var map = [];
 	for(var y = 0; y <= found.info.y.total; y++){
 		map.push([]);
@@ -16,12 +17,15 @@ export default function init() {
 			map[y][x] = '_';
 		}
 	}
-
 	for(var i = 0; i < newData.length; i++){
 		var y = newData[i].y;
 		var x = newData[i].x;
 		map[y][x] = '#';
 	}
+
+	console.log(findExitMoment(data), 'unrelated all signals leave');
+
+	// part one produced in dom.
 	return visualise(map);
 }
 
@@ -33,12 +37,10 @@ function produce(data, i, info){
 		var y = pos.y + info.y.offset;
 		newData.push({x,y});
 	});
-
-	console.log(findExitMoment(data));
-
 	return newData;
 }
 
+//incorrectly developed function to find when flares leave
 function findExitMoment(data){
 	var ranges = {};
 	var found = undefined;
@@ -47,62 +49,28 @@ function findExitMoment(data){
 	var startRange = {};
 	var dataCopy = data;
 	while(bail === false){
-
-
 		if(i === 0){
 			var range = generateRangesArray(dataCopy, i);
 			var x = minMaxFind(range.x);
 			var y = minMaxFind(range.y);
 			startRange['x'] = x;
 			startRange['y'] = y;
-			//console.log(startRange, x, y);
 		}else{
-
 			Object.keys(dataCopy).forEach(key => {
 				var pos = calculateVelocityPosition(dataCopy[key], i);
-				// var remove = (
-				// 	(pos.y > startRange.y.max && pos.y < startRange.y.min)
-				// 	&&
-				// 	(pos.x > startRange.x.max && pos.x < startRange.x.min)
-				// );
 				var inXrange = (pos.x < startRange.x.max && pos.x > startRange.x.min);
 				var inYrange = (pos.y < startRange.y.max && pos.y > startRange.y.min);
 				if(inXrange == false || inYrange == false){
-					//console.log(pos, startRange);
-					//bail = true;
-					console.log(dataCopy);
 					delete dataCopy[key];
 				}
 			});
-
 			if(Object.keys(dataCopy).length <= 0){
-				console.log(dataCopy);
-				console.log(i);
 				found = i;
 				bail = true;
 			}
 		}
-
-
-
-		//console.log(x);
-		// if(x.min > startRange.x.max && y.min > startRange.y.max ){
-		// 	found = i;
-		// 	bail = true;
-		// }
-
-		// var area = x.total + y.total;
-		// ranges[i] = { x, y, area };
-		//
-		// if(i !== 0){
-		// 	if(ranges[i].area > ranges[i-1].area){
-		// 		bail = true;
-		// 		found = i-1;
-		// 	}
-		// }
-
 		if(i === 100000){
-			console.log(dataCopy);
+			console.log('bail out ERROR');
 			bail = true;
 		}
 		i++;
@@ -119,17 +87,6 @@ function generateRangesArray(data, i){
 		y.push(pos.y);
 	});
 	return {x, y};
-}
-
-function generateRange(data, ranges, coord){
-	ranges[coord] = rangeFind(data, coord);
-	ranges[coord] = appendOffsetTotal(ranges[coord], coord);
-	return ranges;
-}
-
-function rangeFind(data, coord){
-	var array = Object.keys( data ).map(function ( key ) { return data[key].position[coord]; });
-	return minMaxFind(array);
 }
 
 function findMoment(data){
