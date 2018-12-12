@@ -15,7 +15,7 @@ export default function init() {
 		matching = returnOnlyMatching(matchingByOneLetter[0], matchingByOneLetter[1]);
 		console.log(matching, 'Part:2 matching characters of closes strings');
 	}
-	
+
 	return matching;
 }
 
