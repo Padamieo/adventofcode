@@ -10,5 +10,6 @@ import dayEight from './day/eight';
 import dayNine from './day/nine';
 import dayTen from './day/ten';
 import dayTwelve from './day/twelve';
+import dayThirteen from './day/thirteen';
 
-document.getElementById('root').innerHTML = dayTwelve();
+document.getElementById('root').innerHTML = dayThirteen.init();
