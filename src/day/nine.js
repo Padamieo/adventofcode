@@ -5,22 +5,37 @@ const c = new common();
 export default function init() {
 	var data = processData(text);
 
-	var marbelArray = [0];
-	var end = true;
+	var players = {};
 	for(var i = 0; i < data.players; i++){
-		if(end){
-			marbelArray.splice(0, 0, i+1);
+		players[i] = [0];
+	}
+	console.log(players);
+
+	var marbelArray = [0];
+	// var eArr = marbelArray[Symbol.iterator]();
+	var index = 0;
+	var bail = false;
+	var count = 0;
+	while(bail === false){
+		console.log(index >= marbelArray.length, index, marbelArray.length);
+		if(index > marbelArray.length){
+			index = marbelArray.length-(index+2);
+			console.log(index);
 		}else{
-			marbelArray.splice(marbelArray.length, 0, i+1);
+			index = index+2;
 		}
-		end = !end;
+
+		marbelArray.splice(index, 0, marbelArray.length);
+
+		count++;
+
+		if(count === 3){
+			bail = true;
+		}
 	}
 	console.log(marbelArray);
-	// var i = 0;
-	// while( i <= 100){
-	//
-	// 	i++;
-	// }
+
+	//console.log(marbelArray);
 	return 'what';
 }
 

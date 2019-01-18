@@ -11,5 +11,7 @@ import dayNine from './day/nine';
 import dayTen from './day/ten';
 import dayTwelve from './day/twelve';
 import dayThirteen from './day/thirteen';
+import daySixteen from './day/sixteen';
+import daySeventeen from './day/seventeen';
 
-document.getElementById('root').innerHTML = dayThirteen.init();
+document.getElementById('root').innerHTML = daySeventeen.init();
